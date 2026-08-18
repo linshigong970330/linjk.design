@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinJK · 可视化管理后台</title>
+  <meta name="description" content="作品与个人信息可视化编辑管理" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <script type="module" crossorigin src="./assets/admin-WKollAeE.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/works-DnJMuTJq.js">
+  <link rel="stylesheet" crossorigin href="./assets/admin-DFOOaVqA.css">
+</head>
+<body class="admin-body">
+  <!-- ========== 登录保护：未通过密码验证前，整个后台被遮罩 ========== -->
+  <div class="login-guard" id="loginGuard" aria-hidden="false">
+    <div class="login-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="login-logo"><span>L</span></div>
+      <h2 id="loginTitle">LinJK 管理后台</h2>
+      <p class="login-hint">请输入管理密码以继续操作</p>
+      <form id="loginForm" class="login-form" autocomplete="off" novalidate>
+        <label class="field login-field">
+          <i class="fa-solid fa-lock field-icon"></i>
+          <input type="password" id="pwdInput" placeholder="请输入管理密码" required autofocus />
+          <button type="button" class="pwd-toggle" id="pwdToggle" aria-label="显示或隐藏密码" tabindex="-1">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </label>
+        <p class="login-error" id="loginError" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary login-submit">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span>登 录</span>
+        </button>
+        <p class="login-tip">
+          <i class="fa-regular fa-circle-info"></i>
+          密码忘记？可通过清除浏览器 localStorage 重置后重新设置。
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="admin-app" id="adminApp" aria-hidden="true">
+
+    <!-- ========== 左侧导航 ========== -->
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <a href="./index.html" class="brand-home" title="返回网站首页">
+          <span class="logo-mark">L</span>
+          <span class="logo-text">Lin<span class="accent">JK</span></span>
+        </a>
+        <p class="brand-sub">可视化管理控制台</p>
+      </div>
+
+      <nav class="admin-nav">
+        <button type="button" class="admin-nav-btn active" data-tab="works">
+          <i class="fa-regular fa-images"></i>
+          <span>作品管理</span>
+          <em>Works</em>
+        </button>
+        <button type="button" class="admin-nav-btn" data-tab="profile">
+          <i class="fa-regular fa-user"></i>
+          <span>个人信息</span>
+          <em>Profile</em>
+        </button>
+        <button type="button" class="admin-nav-btn" data-tab="io">
+          <i class="fa-solid fa-file-import"></i>
+          <span>导入 / 导出</span>
+          <em>Backup</em>
+        </button>
+      </nav>
+
+      <a href="/" class="back-home">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>返回网站首页预览</span>
+      </a>
+    </aside>
+
+    <!-- ========== 主内容 ========== -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <h1 id="pageTitle">作品管理</h1>
+          <p id="pageDesc">在这里新增、编辑、删除你的作品案例，每个作品支持上传多张图片。</p>
+        </div>
+        <div class="topbar-actions">
+          <button type="button" class="btn btn-ghost" id="btnPreview" onclick="window.location.href='/'">
+            <i class="fa-solid fa-eye"></i>
+            <span>预览首页</span>
+          </button>
+          <button type="button" class="btn btn-primary" id="btnAddWork">
+            <i class="fa-solid fa-plus"></i>
+            <span>新增作品</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ========== Tab: 作品管理 ========== -->
+      <section class="admin-tab active" id="tab-works">
+        <!-- 工具栏：筛选 + 搜索 -->
+        <div class="works-toolbar">
+          <div class="works-filter" id="worksFilter">
+            <!-- JS 渲染分类 -->
+          </div>
+          <div class="works-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="workSearch" placeholder="搜索作品标题 / 客户 / 标签..." />
+          </div>
+        </div>
+
+        <!-- 作品列表卡片 -->
+        <div class="works-grid" id="worksGrid">
+          <!-- JS 渲染 -->
+        </div>
+
+        <div class="works-empty" id="worksEmpty" style="display:none;">
+          <i class="fa-regular fa-folder-open"></i>
+          <p>还没有任何作品</p>
+          <button type="button" class="btn btn-primary" id="btnAddWork2">
+            <i class="fa-solid fa-plus"></i>
+            <span>添加第一个作品</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ========== Tab: 个人信息 ========== -->
+      <section class="admin-tab" id="tab-profile">
+        <form class="profile-form" id="profileForm" onsubmit="return false;">
+          <!-- 基础 -->
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-id-card"></i> 基础信息</h3>
+            <div class="form-row">
+              <label>品牌名（Logo 文字）
+                <input type="text" name="brandName" placeholder="LinJK" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>Hero 主标题（每行一个分句，用换行分隔）
+                <textarea name="heroLinesText" rows="4" placeholder="设计，&#10;让&#10;想法 / 空间&#10;被看见。"></textarea>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>Hero 副标题
+                <textarea name="heroSubtitle" rows="3" placeholder="我是 LinJK，一名专注于..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-address-card"></i> 关于我</h3>
+            <div class="form-row">
+              <label>关于我 - 标题
+                <input type="text" name="aboutName" placeholder="你好，我是 LinJK" />
+              </label>
+            </div>
+            <div class="form-row two-col">
+              <label>关于我 - 介绍第一段
+                <textarea name="aboutIntro1" rows="4"></textarea>
+              </label>
+              <label>关于我 - 介绍第二段
+                <textarea name="aboutIntro2" rows="4"></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- 技能 / 软件 -->
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> 服务能力（技能标签）</h3>
+            <p class="panel-desc">每行一个，格式：<code>名称 | 图标类名 | 颜色class(可选)</code>，图标使用 Font Awesome 类名（如 fa-palette）。颜色 class 可选：skill-a skill-b skill-c skill-d。</p>
+            <textarea name="skillsText" rows="6" placeholder="活动平面设计 | fa-palette | skill-a&#10;商业美陈设计 | fa-store | skill-b"></textarea>
+          </div>
+
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-gears"></i> 软件技能</h3>
+            <p class="panel-desc">每行一个，格式：<code>软件名 | 熟练度(0-100)</code></p>
+            <textarea name="softwaresText" rows="5" placeholder="PS / AI / ID | 96&#10;3ds Max / V-Ray | 85"></textarea>
+          </div>
+
+          <!-- 联系方式 -->
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-envelope-open-text"></i> 联系方式</h3>
+            <div class="form-row two-col">
+              <label>邮箱
+                <input type="email" name="contactEmail" placeholder="hello@linjk.design" />
+              </label>
+              <label>电话 / 微信
+                <input type="text" name="contactPhone" placeholder="+86 138-0000-0000" />
+              </label>
+              <label>所在城市
+                <input type="text" name="contactCity" placeholder="China · Shanghai" />
+              </label>
+              <label>工作时间
+                <input type="text" name="contactHours" placeholder="Mon - Sat · 10:00 - 19:00" />
+              </label>
+            </div>
+          </div>
+
+          <!-- 社交平台 -->
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-share-nodes"></i> 社交平台链接</h3>
+            <p class="panel-desc">每行一个，格式：<code>名称 | 图标类名 | 链接</code></p>
+            <textarea name="socialsText" rows="6" placeholder="站酷 ZCOOL | fa-solid fa-paintbrush | #&#10;Behance | fa-brands fa-behance | #"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="btnProfileReset">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>恢复上次保存</span>
+            </button>
+            <button type="submit" class="btn btn-primary" id="btnProfileSave">
+              <i class="fa-solid fa-check"></i>
+              <span>保存个人信息</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ========== Tab: 导入 / 导出 ========== -->
+      <section class="admin-tab" id="tab-io">
+        <div class="io-grid">
+          <div class="io-card">
+            <div class="io-icon success"><i class="fa-solid fa-file-export"></i></div>
+            <h3>导出全部数据</h3>
+            <p>将作品列表、个人信息、设置等导出为 JSON 文件，用于备份或迁移到其他浏览器 / 设备。</p>
+            <button type="button" class="btn btn-primary btn-block" id="btnExport">
+              <i class="fa-solid fa-download"></i>
+              <span>导出 linjk-data.json</span>
+            </button>
+          </div>
+
+          <div class="io-card">
+            <div class="io-icon info"><i class="fa-solid fa-file-import"></i></div>
+            <h3>导入数据</h3>
+            <p>从之前导出的 JSON 文件恢复数据（会覆盖当前 localStorage 中的自定义内容）。</p>
+            <label class="btn btn-ghost btn-block file-label">
+              <i class="fa-solid fa-upload"></i>
+              <span>选择 JSON 文件导入</span>
+              <input type="file" id="fileImport" accept="application/json,.json" hidden />
+            </label>
+          </div>
+
+          <div class="io-card danger">
+            <div class="io-icon danger"><i class="fa-solid fa-rotate-left"></i></div>
+            <h3>一键恢复默认</h3>
+            <p>清空你在 localStorage 中自定义的作品与文字内容，恢复网站初始的默认示例数据。</p>
+            <button type="button" class="btn btn-danger btn-block" id="btnResetAll">
+              <i class="fa-solid fa-trash-can"></i>
+              <span>恢复默认（清空自定义）</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="io-tips">
+          <h4><i class="fa-regular fa-circle-question"></i> 关于数据存储</h4>
+          <ul>
+            <li>所有编辑内容都保存在 <b>浏览器本地（localStorage）</b>，<b>无需后端服务器</b>，操作简单即改即见。</li>
+            <li>图片可上传本地文件（自动转 base64）或填写网络图片 URL，<b>建议大图片压缩后再上传</b>，避免 localStorage 超限（约 5MB）。</li>
+            <li>更换浏览器 / 清理浏览器缓存前，<b>请先导出 JSON 备份</b>，否则数据会丢失。</li>
+            <li>保存后可随时点击右上角「预览首页」查看效果，或点击左侧返回首页。</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ========== 作品 编辑弹窗 ========== -->
+  <div class="work-modal" id="workModal" aria-hidden="true">
+    <div class="work-modal-backdrop" data-modal-close></div>
+    <div class="work-modal-panel" role="dialog" aria-modal="true">
+      <header class="work-modal-head">
+        <h3 id="workModalTitle">新增作品</h3>
+        <button type="button" class="icon-btn" data-modal-close aria-label="关闭">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+
+      <form class="work-modal-body" id="workForm" onsubmit="return false;">
+        <input type="hidden" name="id" />
+
+        <div class="form-row">
+          <label>作品标题 *
+            <input type="text" name="title" required placeholder="例如：品牌发布会主视觉" />
+          </label>
+        </div>
+        <div class="form-row two-col">
+          <label>作品分类 *
+            <select name="category" required id="workCategorySel"></select>
+          </label>
+          <label>副标题（英文）
+            <input type="text" name="subtitle" placeholder="Brand Conference KV" />
+          </label>
+          <label>客户 / 品牌
+            <input type="text" name="client" placeholder="某科技品牌" />
+          </label>
+          <label>年份
+            <input type="text" name="year" placeholder="2025" />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>标签（多个用逗号或空格分隔）
+            <input type="text" name="tagsText" placeholder="主视觉, KV, 海报" />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>作品描述
+            <textarea name="description" rows="4" placeholder="描述这个设计项目的背景、思路、亮点..."></textarea>
+          </label>
+        </div>
+
+        <!-- 图片 -->
+        <div class="form-row">
+          <label class="imgs-label">
+            <span>作品图片（第一张为封面，拖拽可排序，至少 1 张，建议 3-5 张）</span>
+            <span class="imgs-count" id="imgsCount">0 张</span>
+          </label>
+
+          <!-- 上传区 -->
+          <div class="img-uploader" id="imgUploader">
+            <div class="upload-drop" id="uploadDrop">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p><b>点击选择图片</b> 或 拖拽图片到此处</p>
+              <small>支持 JPG / PNG / WebP · 建议单张不超过 1MB</small>
+              <input type="file" id="fileImg" accept="image/*" multiple hidden />
+            </div>
+            <!-- 或填写 URL -->
+            <div class="upload-url">
+              <input type="text" id="imgUrlInput" placeholder="或者粘贴网络图片 URL，回车添加..." />
+              <button type="button" class="btn btn-ghost btn-sm" id="btnAddUrl">
+                <i class="fa-solid fa-link"></i>
+                添加
+              </button>
+            </div>
+          </div>
+
+          <!-- 图片预览缩略图列表 -->
+          <div class="imgs-preview" id="imgsPreview"></div>
+        </div>
+
+        <!-- 视频 -->
+        <div class="form-row">
+          <label>视频展示链接（每行一个，支持 mp4 / webm 等浏览器可直接播放的视频 URL；留空表示无视频）
+            <textarea name="videoUrlsText" rows="3" placeholder="https://example.com/video/showreel-01.mp4&#10;https://example.com/video/exhibition-walkthrough.webm"></textarea>
+          </label>
+          <p class="panel-desc" style="margin-top:8px;">
+            <i class="fa-regular fa-circle-question"></i>
+            视频将出现在作品图集浏览的<b>图片之后</b>，点击作品卡片进入详情即可查看播放。适合展示项目视频、作品集短片、现场记录等。
+          </p>
+        </div>
+
+        <footer class="work-modal-foot">
+          <button type="button" class="btn btn-ghost" data-modal-close>取消</button>
+          <button type="submit" class="btn btn-primary" id="btnWorkSave">
+            <i class="fa-solid fa-check"></i>
+            <span>保存作品</span>
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== Toast 轻提示 ========== -->
+  <div class="toast" id="toast" role="status">
+    <i class="toast-icon"></i>
+    <span class="toast-text"></span>
+  </div>
+
+  <!-- 管理页脚本（Vite 以此为入口打包，最终 dist/admin.html 会自动重写为带 hash 的资源） -->
+</body>
+</html>

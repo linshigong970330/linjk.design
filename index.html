@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LinJK - 视觉传达设计师作品集 | 活动平面设计 · 商业美陈设计 · 展厅设计 · 三维建模" />
+  <meta name="keywords" content="视觉传达, 设计师, 作品集, 平面设计, 美陈设计, 展厅设计, 3D建模" />
+  <title>LinJK · Visual Designer Portfolio</title>
+
+  <!-- Font Awesome 图标 CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <script type="module" crossorigin src="./assets/main-BTZYTTrW.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/works-DnJMuTJq.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-CySE3ula.css">
+</head>
+<body>
+  <!-- 自定义鼠标跟随（大屏显示） -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- 滚动进度条 -->
+  <div class="scroll-progress" id="scrollProgress">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <!-- ========== 导航栏 Navbar ========== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="#hero" class="navbar-logo" data-scroll-link>
+        <span class="logo-mark">L</span>
+        <span class="logo-text">Lin<span class="accent">JK</span></span>
+      </a>
+
+      <nav class="navbar-menu" id="navbarMenu">
+        <a href="#about"      class="navbar-link" data-scroll-link>关于</a>
+        <a href="#portfolio"  class="navbar-link" data-scroll-link>作品</a>
+        <a href="#services"   class="navbar-link" data-scroll-link>服务</a>
+        <a href="#contact"    class="navbar-link" data-scroll-link>联系</a>
+      </nav>
+
+      <button class="navbar-toggle" id="navbarToggle" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== Hero 英雄区 ========== -->
+    <section class="hero" id="hero">
+      <!-- 背景几何图形（shape-3 旋转三角形已按用户要求移除） -->
+      <div class="hero-bg">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-noise"></div>
+      </div>
+
+      <div class="container hero-content">
+        <div class="hero-text">
+          <p class="hero-eyebrow reveal">
+            <span class="line"></span>
+            Visual Communication Designer
+          </p>
+          <h1 class="hero-title reveal">
+            <span class="line-wrap"><span class="line-text">设计，</span></span>
+            <span class="line-wrap"><span class="line-text">让</span></span>
+            <span class="line-wrap"><span class="line-text">
+              <span class="brand-a">想法</span>
+              <span class="slash">/</span>
+              <span class="brand-b">空间</span>
+            </span></span>
+            <span class="line-wrap"><span class="line-text">被看见。</span></span>
+          </h1>
+          <p class="hero-subtitle reveal">
+            我是 LinJK，一名专注于活动视觉、商业美陈、展厅空间与三维表现的视觉设计师。
+            <br class="hide-mobile" />
+            用设计让每一次表达都与众不同。
+          </p>
+          <div class="hero-cta reveal">
+            <a href="#portfolio" class="btn btn-primary" data-scroll-link>
+              <span>查看作品</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#contact" class="btn btn-ghost" data-scroll-link>
+              <span>联系合作</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stats reveal">
+          <div class="stat">
+            <div class="stat-num" data-count="120">0</div>
+            <div class="stat-label">完成项目</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-count="6">0</div>
+            <div class="stat-label">年从业经验</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-count="40">0</div>
+            <div class="stat-label">合作品牌</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-count="98">0</div>
+            <div class="stat-label">客户满意度 %</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 向下滚动提示 -->
+      <a href="#about" class="scroll-hint" data-scroll-link>
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
+      </a>
+    </section>
+
+    <!-- ========== About 关于我 ========== -->
+    <section class="section about" id="about">
+      <div class="container about-inner">
+        <div class="section-head reveal">
+          <p class="section-eyebrow"><i class="fa-regular fa-user"></i> 关于我</p>
+          <h2 class="section-title">让创意，<span class="gradient-text">落地</span>。</h2>
+        </div>
+
+        <div class="about-grid">
+          <!-- 左：照片 -->
+          <div class="about-photo reveal">
+            <div class="photo-frame">
+              <img
+                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=portrait%20of%20a%20young%20asian%20creative%20designer%20professional%20studio%20lighting%20minimal%20dark%20background%20confident&image_size=portrait_4_3"
+                alt="LinJK 设计师头像"
+                loading="lazy"
+              />
+              <div class="photo-badge">
+                <i class="fa-solid fa-award"></i>
+                <span>Designer / 2019 - Present</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右：介绍 + 技能 -->
+          <div class="about-info">
+            <div class="about-bio reveal">
+              <h3>你好，我是 LinJK 👋</h3>
+              <p>
+                毕业于视觉传达专业，拥有 6 年设计行业经验。目前专注于品牌活动视觉系统、商业美陈、
+                企业展厅与空间方案设计，擅长用视觉语言将商业策略与艺术美学融合，
+                为品牌创造真正有记忆点的视觉体验。
+              </p>
+              <p>
+                无论是一张海报的字体排印，还是一个上千平展厅的空间叙事，
+                我都以同样的专注度投入其中 —— 我相信好设计藏在细节里。
+              </p>
+            </div>
+
+            <div class="about-skills reveal">
+              <h4>核心服务能力</h4>
+              <div class="skill-list">
+                <span class="skill-tag"><i class="fa-solid fa-palette skill-a"></i> 活动平面设计</span>
+                <span class="skill-tag"><i class="fa-solid fa-store skill-b"></i> 商业美陈设计</span>
+                <span class="skill-tag"><i class="fa-solid fa-building skill-c"></i> 展厅空间设计</span>
+                <span class="skill-tag"><i class="fa-solid fa-cube skill-d"></i> 三维建模渲染</span>
+                <span class="skill-tag"><i class="fa-solid fa-pen-ruler"></i> 品牌 VI 系统</span>
+                <span class="skill-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> 创意视觉方案</span>
+              </div>
+
+              <div class="about-softwares">
+                <h5>软件技能</h5>
+                <div class="software-row">
+                  <div class="software">
+                    <span class="software-name">PS / AI / ID</span>
+                    <div class="bar"><div class="bar-fill" style="--w: 96%"></div></div>
+                  </div>
+                  <div class="software">
+                    <span class="software-name">3ds Max / V-Ray</span>
+                    <div class="bar"><div class="bar-fill" style="--w: 85%"></div></div>
+                  </div>
+                  <div class="software">
+                    <span class="software-name">C4D / Corona</span>
+                    <div class="bar"><div class="bar-fill" style="--w: 80%"></div></div>
+                  </div>
+                  <div class="software">
+                    <span class="software-name">SketchUp / Enscape</span>
+                    <div class="bar"><div class="bar-fill" style="--w: 75%"></div></div>
+                  </div>
+                  <div class="software">
+                    <span class="software-name">Blender</span>
+                    <div class="bar"><div class="bar-fill" style="--w: 65%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Portfolio 作品展示 ========== -->
+    <section class="section portfolio" id="portfolio">
+      <div class="container">
+        <div class="section-head section-head-center reveal">
+          <p class="section-eyebrow"><i class="fa-regular fa-image"></i> 作品案例</p>
+          <h2 class="section-title">精选 <span class="gradient-text">作品集</span></h2>
+          <p class="section-desc">点击作品卡片查看详细项目介绍与图集</p>
+        </div>
+
+        <!-- 分类筛选 -->
+        <div class="portfolio-filter reveal" id="portfolioFilter">
+          <!-- 由 JS 动态渲染分类按钮 -->
+        </div>
+
+        <!-- 作品网格 -->
+        <div class="portfolio-grid" id="portfolioGrid">
+          <!-- 由 JS 动态渲染作品卡片 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Services 服务内容 ========== -->
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section-head section-head-center reveal">
+          <p class="section-eyebrow"><i class="fa-regular fa-lightbulb"></i> 服务内容</p>
+          <h2 class="section-title">我能为你<span class="gradient-text">做什么</span></h2>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <div class="service-icon service-a">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <h3>活动平面设计</h3>
+            <p>品牌发布会、论坛峰会、节庆活动等全案主视觉设计，涵盖海报、背景板、邀请函、导视物料等全套延展。</p>
+            <ul class="service-list">
+              <li>主视觉 KV</li>
+              <li>活动物料延展</li>
+              <li>印刷品 / 数字物料</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon service-b">
+              <i class="fa-solid fa-store"></i>
+            </div>
+            <h3>商业美陈设计</h3>
+            <p>购物中心季节性美陈、品牌 DP 点、快闪店、装置艺术等，从概念方案到施工图落地全流程支持。</p>
+            <ul class="service-list">
+              <li>季节 / 节日美陈</li>
+              <li>快闪店 / 中庭装置</li>
+              <li>DP 打卡点</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon service-c">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <h3>展厅空间设计</h3>
+            <p>企业展厅、文博展馆、临展展台、销售中心等室内空间方案设计，含平面布局、效果图、多媒体展项建议。</p>
+            <ul class="service-list">
+              <li>企业品牌展厅</li>
+              <li>博物馆 / 文化馆</li>
+              <li>展览展台</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon service-d">
+              <i class="fa-solid fa-cube"></i>
+            </div>
+            <h3>三维建模渲染</h3>
+            <p>空间方案效果图、产品建模、装置艺术表现等，熟练使用 3ds Max / C4D / Blender 多种渲染器。</p>
+            <ul class="service-list">
+              <li>空间效果图表现</li>
+              <li>产品建模渲染</li>
+              <li>3D 动画（可谈）</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Contact 联系我 ========== -->
+    <section class="section contact" id="contact">
+      <div class="container contact-inner">
+        <div class="section-head reveal">
+          <p class="section-eyebrow"><i class="fa-regular fa-envelope"></i> 联系我</p>
+          <h2 class="section-title">
+            有想法？<br />
+            <span class="gradient-text">一起聊聊吧。</span>
+          </h2>
+          <p class="section-desc">
+            无论是项目合作、工作邀约还是只想交个朋友，
+            <br class="hide-mobile" />
+            欢迎随时通过以下方式联系我。
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <ul class="contact-list reveal">
+            <li>
+              <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <span class="contact-label">邮箱</span>
+                <a href="mailto:hello@linjk.design" class="contact-value">hello@linjk.design</a>
+              </div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <span class="contact-label">电话 / 微信</span>
+                <span class="contact-value">+86 138-0000-0000</span>
+              </div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <span class="contact-label">所在城市</span>
+                <span class="contact-value">China · Shanghai</span>
+              </div>
+            </li>
+            <li>
+              <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <span class="contact-label">工作时间</span>
+                <span class="contact-value">Mon - Sat · 10:00 - 19:00</span>
+              </div>
+            </li>
+          </ul>
+
+          <!-- 开始合作 CTA（原本放在"关注我的平台"里，用户要求删除社交区，把 CTA 保留） -->
+          <div class="contact-cta reveal">
+            <a href="#hero" class="btn btn-primary btn-big" data-scroll-link>
+              <i class="fa-solid fa-rocket"></i>
+              <span>开始合作</span>
+            </a>
+            <p class="contact-cta-hint">
+              <i class="fa-regular fa-lightbulb"></i>
+              想聊项目、招我入职，或单纯交个朋友？<br class="hide-mobile" />
+              随时通过上方方式联系我，我会尽快回复。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== Footer 页脚 ========== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">L</span>
+        <div>
+          <div class="footer-name">Lin<span class="accent">JK</span> · Visual Designer</div>
+          <p class="footer-slogan">Design that makes ideas visible.</p>
+        </div>
+      </div>
+      <div class="footer-copy">
+        © 2025 LinJK Portfolio · All Rights Reserved
+        <br />
+        Designed & Coded with <i class="fa-solid fa-heart accent"></i> by LinJK
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== Lightbox 作品详情弹窗 ========== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <button class="lightbox-close" data-lightbox-close aria-label="关闭">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一个">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一个">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <div class="lightbox-media">
+        <div class="lightbox-gallery" id="lightboxGallery">
+          <!-- 渲染图片 -->
+        </div>
+        <div class="lightbox-dots" id="lightboxDots"></div>
+      </div>
+
+      <div class="lightbox-info">
+        <span class="lightbox-category" id="lightboxCategory">分类</span>
+        <h3 class="lightbox-title" id="lightboxTitle">作品标题</h3>
+        <p class="lightbox-subtitle" id="lightboxSubtitle">副标题</p>
+
+        <div class="lightbox-meta">
+          <div><span>客户</span><b id="lightboxClient">—</b></div>
+          <div><span>年份</span><b id="lightboxYear">—</b></div>
+        </div>
+
+        <div class="lightbox-tags" id="lightboxTags"></div>
+
+        <p class="lightbox-desc" id="lightboxDesc"></p>
+      </div>
+    </div>
+
+    <!-- 放大查看遮罩 -->
+    <div class="lightbox-zoom" id="lightboxZoom" aria-hidden="true">
+      <button type="button" class="zoom-close" aria-label="关闭放大">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img src="" alt="放大查看" />
+      <span class="zoom-hint">点击空白或按 ESC 退出 · 方向键切换图集</span>
+    </div>
+  </div>
+
+  <!-- Admin 可视化管理 入口浮动按钮 -->
+  <a href="./admin.html" class="admin-fab" id="adminFab" title="可视化管理（编辑作品 / 修改文字）">
+    <i class="fa-solid fa-pen-to-square"></i>
+    <span>管理</span>
+  </a>
+
+  <!-- 主脚本入口（Vite 会以此为入口打包，最终 dist/index.html 会被自动重写为带 hash 的资源） -->
+</body>
+</html>
