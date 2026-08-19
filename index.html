@@ -16,14 +16,44 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
 
-  <script type="module" crossorigin src="./assets/main-BTZYTTrW.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/works-DnJMuTJq.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-CySE3ula.css">
-</head>
+    <!-- ⚠️ 防呆：如果 1.5 秒内 module 脚本没跑，说明用户双击 HTML 在 file:// 打开（禁止 ES module import）→ 全屏大红条警告正确打开方式 -->
+    <script>
+      (function(){
+        var el = document.createElement('div');
+        el.id = 'no-module-fallback';
+        el.style.cssText = 'display:none;position:fixed;inset:0;z-index:999999;background:#7f1d1d;color:#fff;padding:24px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:auto;';
+        el.innerHTML = '<div style="max-width:780px;margin:40px auto;background:#991b1b;border-radius:16px;padding:30px 28px;border:2px solid #fca5a5;box-shadow:0 20px 60px rgba(0,0,0,0.5)">'
+          + '<h1 style="margin:0 0 14px;font-size:24px;line-height:1.4;">❌ 打开方式错误！不要再双击 HTML 文件了</h1>'
+          + '<p style="margin:0 0 12px;font-size:15px;line-height:1.8;">当前你是直接双击 <code style="background:#450a0a;padding:2px 6px;border-radius:4px;">index.html / admin.html</code> 用浏览器打开的，这种方式 <b>无法加载模块化 JS（ES module CORS 限制）</b>，你点任何按钮都等于没按，保存也完全不会写入。</p>'
+          + '<h3 style="margin:20px 0 10px;font-size:16px;">✅ 本地打开后台 / 预览首页的正确姿势（2 选 1）：</h3>'
+          + '<div style="background:rgba(255,255,255,0.06);padding:16px 18px;border-radius:12px;margin-bottom:14px;">'
+          + '<p style="margin:0 0 8px;"><b>方式 A · 本机开发预览（推荐你改作品集的时候用）</b></p>'
+          + '<p style="margin:0 0 4px;">PowerShell 里运行：</p>'
+          + '<pre style="background:#0b0b0b;padding:10px 12px;border-radius:8px;overflow:auto;margin:0 0 8px;">Set-Location "d:\\个人作品网站\\LinJK"; npm run dev</pre>'
+          + '<p style="margin:0;">浏览器访问：<code style="background:#450a0a;padding:2px 6px;border-radius:4px;">http://localhost:5173/</code>（首页）&nbsp;&nbsp;/&nbsp;&nbsp;<code style="background:#450a0a;padding:2px 6px;border-radius:4px;">http://localhost:5173/admin.html</code>（后台）</p>'
+          + '</div>'
+          + '<div style="background:rgba(255,255,255,0.06);padding:16px 18px;border-radius:12px;">'
+          + '<p style="margin:0 0 8px;"><b>方式 B · 上线版 / 发给别人看</b></p>'
+          + '<p style="margin:0;">直接访问你的 GitHub Pages 网址：<code style="background:#450a0a;padding:2px 6px;border-radius:4px;">https://linshigong970330.github.io/linjk.design/admin.html</code>（后台密码 ming2007）</p>'
+          + '</div></div>';
+        document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(el); });
+        window.setTimeout(function(){
+          if (!window.__LINJK_MODULES_LOADED__) {
+            try { el.style.display = 'block'; } catch(_){}
+          }
+        }, 1500);
+      })();
+    </script>
+
+    <!-- Vite 入口：相对路径（避免 file:// 错解析到磁盘根）；加载完成后设置 window.__LINJK_MODULES_LOADED__，用于上面的防呆红条判断 -->
+    <script type="module" crossorigin src="./assets/main-eB3LLmUM.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/works-ChCU3YcR.js">
+    <link rel="stylesheet" crossorigin href="./assets/main-CjF5dEsv.css">
+  </head>
 <body>
   <!-- 自定义鼠标跟随（大屏显示） -->
   <div class="cursor" id="cursor"></div>
@@ -134,12 +164,13 @@
         </div>
 
         <div class="about-grid">
-          <!-- 左：照片 -->
+          <!-- 左：照片（通过 Profile.aboutPhoto 动态设置 src） -->
           <div class="about-photo reveal">
             <div class="photo-frame">
               <img
-                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=portrait%20of%20a%20young%20asian%20creative%20designer%20professional%20studio%20lighting%20minimal%20dark%20background%20confident&image_size=portrait_4_3"
-                alt="LinJK 设计师头像"
+                id="aboutPhotoImg"
+                src=""
+                alt="个人照片 / 设计师头像"
                 loading="lazy"
               />
               <div class="photo-badge">
@@ -427,6 +458,7 @@
     <span>管理</span>
   </a>
 
-  <!-- 主脚本入口（Vite 会以此为入口打包，最终 dist/index.html 会被自动重写为带 hash 的资源） -->
+  <!-- 主脚本入口（Vite 会以此为入口打包，最终 dist/index.html 会被自动重写为带 hash 的资源） -->
+
 </body>
 </html>

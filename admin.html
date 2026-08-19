@@ -14,14 +14,44 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
 
-  <script type="module" crossorigin src="./assets/admin-WKollAeE.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/works-DnJMuTJq.js">
-  <link rel="stylesheet" crossorigin href="./assets/admin-DFOOaVqA.css">
-</head>
+    <!-- ⚠️ 防呆：如果 1.5 秒内 module 脚本没跑，说明用户双击 HTML 在 file:// 打开（禁止 ES module import）→ 全屏大红条警告正确打开方式 -->
+    <script>
+      (function(){
+        var el = document.createElement('div');
+        el.id = 'no-module-fallback';
+        el.style.cssText = 'display:none;position:fixed;inset:0;z-index:999999;background:#7f1d1d;color:#fff;padding:24px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:auto;';
+        el.innerHTML = '<div style="max-width:780px;margin:40px auto;background:#991b1b;border-radius:16px;padding:30px 28px;border:2px solid #fca5a5;box-shadow:0 20px 60px rgba(0,0,0,0.5)">'
+          + '<h1 style="margin:0 0 14px;font-size:24px;line-height:1.4;">❌ 打开方式错误！不要再双击 admin.html 文件了</h1>'
+          + '<p style="margin:0 0 12px;font-size:15px;line-height:1.8;">你现在是直接双击 <code style="background:#450a0a;padding:2px 6px;border-radius:4px;">admin.html</code> 用浏览器打开的，这种方式 <b>无法加载模块化 JS（ES module CORS 限制）</b>，<u>你刚才点任何「保存」按钮都等于没按，数据完全没写入</u>，所以才显示"成功但内容没变"。</p>'
+          + '<h3 style="margin:20px 0 10px;font-size:16px;">✅ 正确打开后台的 2 种方式（任选其一）：</h3>'
+          + '<div style="background:rgba(255,255,255,0.06);padding:16px 18px;border-radius:12px;margin-bottom:14px;">'
+          + '<p style="margin:0 0 8px;"><b>① 本地改作品集（推荐）</b></p>'
+          + '<p style="margin:0 0 4px;">PowerShell 运行：</p>'
+          + '<pre style="background:#0b0b0b;padding:10px 12px;border-radius:8px;overflow:auto;margin:0 0 8px;">Set-Location "d:\\个人作品网站\\LinJK"; npm run dev</pre>'
+          + '<p style="margin:0;">浏览器访问：<code style="background:#450a0a;padding:2px 6px;border-radius:4px;">http://localhost:5173/admin.html</code></p>'
+          + '</div>'
+          + '<div style="background:rgba(255,255,255,0.06);padding:16px 18px;border-radius:12px;">'
+          + '<p style="margin:0 0 8px;"><b>② 直接用 GitHub Pages 上线版改（不用开服务器）</b></p>'
+          + '<p style="margin:0;">浏览器打开：<code style="background:#450a0a;padding:2px 6px;border-radius:4px;">https://linshigong970330.github.io/linjk.design/admin.html</code>  密码 <code style="background:#450a0a;padding:2px 6px;border-radius:4px;">ming2007</code></p>'
+          + '</div></div>';
+        document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(el); });
+        window.setTimeout(function(){
+          if (!window.__LINJK_MODULES_LOADED__) {
+            try { el.style.display = 'block'; } catch(_){}
+          }
+        }, 1500);
+      })();
+    </script>
+
+    <!-- Vite 入口：相对路径（避免 file:// 错解析到磁盘根）；加载完成后设置 window.__LINJK_MODULES_LOADED__，用于上面的防呆红条判断 -->
+    <script type="module" crossorigin src="./assets/admin-CUdkxd4e.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/works-ChCU3YcR.js">
+    <link rel="stylesheet" crossorigin href="./assets/admin-BVXsUv2M.css">
+  </head>
 <body class="admin-body">
   <!-- ========== 登录保护：未通过密码验证前，整个后台被遮罩 ========== -->
   <div class="login-guard" id="loginGuard" aria-hidden="false">
@@ -105,6 +135,22 @@
         </div>
       </header>
 
+      <!-- 发布状态 Banner：本地有修改但没发布到 site-data.json 时，黄色提醒 -->
+      <div class="publish-banner" id="publishBanner" style="display:none;">
+        <div class="banner-left">
+          <i class="fa-solid fa-triangle-exclamation warn"></i>
+          <div>
+            <b id="bannerTitle">你当前有本地修改，只有这台电脑能看到 👀</b>
+            <p id="bannerDesc">改完后请到「导入/导出」Tab 点绿色「下载 site-data.json（发布用）」→ 复制到项目 <code>public\site-data.json</code> → PowerShell 运行 <code>npm run build-github</code> → 解压 zip 上传 GitHub，手机和 HR 才能看到最新内容。</p>
+          </div>
+        </div>
+        <div class="banner-right">
+          <button type="button" class="btn btn-success btn-sm" id="btnBannerGoPublish">
+            <i class="fa-solid fa-rocket"></i> 去发布
+          </button>
+        </div>
+      </div>
+
       <!-- ========== Tab: 作品管理 ========== -->
       <section class="admin-tab active" id="tab-works">
         <!-- 工具栏：筛选 + 搜索 -->
@@ -153,6 +199,34 @@
               <label>Hero 副标题
                 <textarea name="heroSubtitle" rows="3" placeholder="我是 LinJK，一名专注于..."></textarea>
               </label>
+            </div>
+          </div>
+
+          <!-- 个人照片 / 头像（关于我区域左侧大图） -->
+          <div class="form-panel">
+            <h3><i class="fa-solid fa-camera-retro"></i> 个人照片 · 关于我头像</h3>
+            <p class="panel-desc">首页「关于我」区域左边那张大图。支持本地上传（自动转 base64，随站点打包一起发布，不用任何外链图床）。</p>
+            <div class="avatar-row">
+              <div class="avatar-preview" id="avatarPreviewWrap">
+                <img id="avatarPreview" alt="预览" src="" />
+                <span id="avatarEmpty">还没有自定义照片（将使用默认占位头像）</span>
+              </div>
+              <div class="avatar-actions">
+                <label class="btn btn-ghost file-label">
+                  <i class="fa-solid fa-file-arrow-up"></i>
+                  <span>上传本地照片</span>
+                  <input type="file" id="avatarFile" accept="image/*" hidden />
+                </label>
+                <div class="avatar-url-row">
+                  <input type="text" id="avatarUrlInput" placeholder="或粘贴图片 URL（https://... / data:image/...）" />
+                  <button type="button" class="btn btn-ghost" id="btnAvatarUrl">应用</button>
+                </div>
+                <button type="button" class="btn btn-ghost danger-sm" id="btnAvatarClear">
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>还原为默认占位图</span>
+                </button>
+                <small class="avatar-hint">👉 建议竖版 4:5 或 3:4（和手机壁纸类似），≥ 800px；单张 ≤ 5MB 为宜，上传后会自动压缩。</small>
+              </div>
             </div>
           </div>
 
@@ -229,19 +303,37 @@
       <!-- ========== Tab: 导入 / 导出 ========== -->
       <section class="admin-tab" id="tab-io">
         <div class="io-grid">
+          <!-- ✨ 一键发布到站点（核心流程：下载固定文件名 site-data.json） -->
+          <div class="io-card publish">
+            <div class="io-icon success"><i class="fa-solid fa-rocket"></i></div>
+            <h3>① 一键发布到站点</h3>
+            <p>把你当前 Admin 里<b>所有作品 + 个人信息</b>打包为 <code>site-data.json</code>（固定文件名，不用改）。<b>所有访问你网站的人（手机、HR 电脑）</b>等你下一步发布后都会看到这份内容。</p>
+            <button type="button" class="btn btn-success btn-block" id="btnPublishSite">
+              <i class="fa-solid fa-download"></i>
+              <span>下载 site-data.json（发布用）</span>
+            </button>
+            <div class="publish-steps">
+              <h5><i class="fa-regular fa-circle-check"></i> 接下来 2 步搞定全网同步</h5>
+              <ol>
+                <li>把刚下载的 <b>site-data.json</b> 文件复制到：<br /><code>D:\个人作品网站\LinJK\public\site-data.json</code><small>（public 文件夹就在项目根目录，自动随 build 打包）</small></li>
+                <li>PowerShell 运行：<br /><code>cd d:\个人作品网站\LinJK ; npm run build-github</code><br />得到 <b>dist-github.zip</b> → 解压后拖到 GitHub Upload files 覆盖旧文件。</li>
+              </ol>
+            </div>
+          </div>
+
           <div class="io-card">
             <div class="io-icon success"><i class="fa-solid fa-file-export"></i></div>
-            <h3>导出全部数据</h3>
-            <p>将作品列表、个人信息、设置等导出为 JSON 文件，用于备份或迁移到其他浏览器 / 设备。</p>
+            <h3>② 导出备份（自己留档/迁设备）</h3>
+            <p>导出一个带日期的 <code>linjk-data-YYYYMMDD.json</code>，用于<u>备份留存</u>或发到手机端 Admin 导入（自己的多设备迁移）。<b>这个不要拿来发布。</b></p>
             <button type="button" class="btn btn-primary btn-block" id="btnExport">
               <i class="fa-solid fa-download"></i>
-              <span>导出 linjk-data.json</span>
+              <span>导出 linjk-data 备份</span>
             </button>
           </div>
 
           <div class="io-card">
             <div class="io-icon info"><i class="fa-solid fa-file-import"></i></div>
-            <h3>导入数据</h3>
+            <h3>从备份导入</h3>
             <p>从之前导出的 JSON 文件恢复数据（会覆盖当前 localStorage 中的自定义内容）。</p>
             <label class="btn btn-ghost btn-block file-label">
               <i class="fa-solid fa-upload"></i>
@@ -262,12 +354,12 @@
         </div>
 
         <div class="io-tips">
-          <h4><i class="fa-regular fa-circle-question"></i> 关于数据存储</h4>
+          <h4><i class="fa-regular fa-circle-question"></i> 关于数据存储 & 发布（重要！）</h4>
           <ul>
-            <li>所有编辑内容都保存在 <b>浏览器本地（localStorage）</b>，<b>无需后端服务器</b>，操作简单即改即见。</li>
-            <li>图片可上传本地文件（自动转 base64）或填写网络图片 URL，<b>建议大图片压缩后再上传</b>，避免 localStorage 超限（约 5MB）。</li>
-            <li>更换浏览器 / 清理浏览器缓存前，<b>请先导出 JSON 备份</b>，否则数据会丢失。</li>
-            <li>保存后可随时点击右上角「预览首页」查看效果，或点击左侧返回首页。</li>
+            <li>「在 Admin 改完 → 点保存」：只有<b>你现在这台电脑这个浏览器</b>立刻看到效果。其它电脑 / 手机 / HR 打开网址是看不到的。</li>
+            <li>「让所有人（手机+HR）看到你的最新内容」的正确流程：改完作品/文字 → <b>点上面绿色「下载 site-data.json（发布用）」</b> → 复制到项目 <code>public/site-data.json</code> → <code>npm run build-github</code> → 上传新 zip 到 GitHub 覆盖。</li>
+            <li>图片可上传本地文件（自动转 base64）或填写网络图片 URL，<b>建议大图片压缩后再上传</b>，避免 site-data.json 太大（GitHub Pages 单文件一般建议 ≤25MB）。</li>
+            <li>更换浏览器 / 清理浏览器缓存前，<b>请先导出备份 JSON</b>，否则 Admin 里的草稿会丢失。</li>
           </ul>
         </div>
       </section>
